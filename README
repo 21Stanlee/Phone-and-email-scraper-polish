@@ -1,2 +1,4 @@
 #This programme searches for e-mail adresses and phone numbers (in polish/european formats) and saves them to a JSON file. 
 #i added a REGON number filter which are simmilar to phone numbers but serve a different purpose 
+
+#In future i want to update it with more functionality :)
