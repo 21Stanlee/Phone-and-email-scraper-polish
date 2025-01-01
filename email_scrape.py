@@ -33,6 +33,12 @@ def scrape_phones(tekst):
 
     return(wynikowe_numery)
 
+def scrape_regon(tekst): #ta funkcja wykorzystuje regonRegex (po co ma sie marnowac)
+    regonRegex = re.compile(r'REGON:\s?(\d{9})')
+    potencjalne_regony = regonRegex.findall(tekst)
+
+    return potencjalne_regony
+
 def scrape_email(tekst):
     mailRegex = re.compile(r'''
         [a-zA-Z0-9_.+]+       #name part 
@@ -41,6 +47,13 @@ def scrape_email(tekst):
                      ''',re.VERBOSE)
     emails = mailRegex.findall(tekst)
     return emails
+
+def scrape_bank(tekst):
+     #28 1500 1126 1211 2010 3937 0000
+     bankRegex = re.compile(r'\d\d\s?\d{4}\s?\d{4}\s?\d{4}\s?\d{4}\s?\d{4}\s?\d{4}')
+     bank = bankRegex.findall(tekst)
+     
+     return bank
 
 def zapisz_wyniki(plik_wyniki, wyniki):
         """Ta funkcja zapisze wyniki do pliku JSON"""
@@ -54,10 +67,14 @@ def zapisz_wyniki(plik_wyniki, wyniki):
 
 wyniki_mail = scrape_email(tekst)
 wyniki_numery = scrape_phones(tekst)
+wyniki_REGON = scrape_regon(tekst)
+wyniki_bank = scrape_bank(tekst)
 
-print(f'Znaleziono {len(wyniki_mail)} maili, i {len(wyniki_numery)} numerów!')
+print(f'Znaleziono {len(wyniki_mail)} maili,{len(wyniki_numery)} numerów tel,\
+      \n{len(wyniki_REGON)} REGONÓW i {len(wyniki_bank)} kont bankowych!')
 #słownik na potrzeby json
-wyniki = {'Adresy mail':wyniki_mail, 'Numery tel': wyniki_numery}
+wyniki = {'Adresy mail':wyniki_mail, 'Numery tel': wyniki_numery, 'REGONy':wyniki_REGON, \
+          'Nr_rachunków':wyniki_bank }
 zapisz_wyniki('wyniki.json', wyniki)
 
 
