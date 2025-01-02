@@ -1,8 +1,10 @@
 #This programme searches for:
+
 #e-mail adresses 
 #phone numbers (in polish/european format)
-#numery REGON
-#rachunki bankowe 
+#REGON numbers 
+#bank accoutns numbers  
+
 #Then saves them to json file 
 
 
